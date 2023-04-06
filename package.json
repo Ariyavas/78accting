@@ -2,9 +2,10 @@
   "name": "78accting-project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,11 @@
   },
   "homepage": "https://github.com/Ariyavas/78accting#readme",
   "dependencies": {
+    "chalk": "^5.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "mongoose": "^7.0.3",
     "multer": "^1.4.5-lts.1",
     "pdfkit": "^0.13.0"
   },
@@ -28,7 +31,6 @@
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/multer": "^1.4.7",
-    "@types/node": "^18.15.11",
     "nodemon": "^2.0.22",
     "typescript": "^5.0.3"
   }
