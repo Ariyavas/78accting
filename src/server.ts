@@ -8,6 +8,9 @@ import { config } from "./config/config";
 const app = express();
 const server = http.createServer(app);
 
+// ? routers
+import invoice from "./routers/invoice.routes"
+
 app.use(cors());
 
 mongoose.set("strictQuery", false);
@@ -56,6 +59,8 @@ const StartServer = () => {
     }
     next();
   });
+
+  app.use("/api/invoice", invoice);
 
   server.listen(config.server.port, () => {
     Logging.info(`Server is running on port: ${config.server.port}`);
