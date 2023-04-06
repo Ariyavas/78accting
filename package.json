@@ -1,0 +1,20 @@
+{
+  "name": "78accting-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ariyavas/78accting.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ariyavas/78accting/issues"
+  },
+  "homepage": "https://github.com/Ariyavas/78accting#readme"
+}
