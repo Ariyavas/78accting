@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { exportpdf } from "../services/invoice";
 
 const API_invoice = (req: Request, res: Response, next: NextFunction) => {
-    exportpdf("testpdf").then((data: any) => {
+    exportpdf(Math.random().toString()).then((data: any) => {
         res.status(200).json({ data: data });
     })
         .catch((err: any) => {
