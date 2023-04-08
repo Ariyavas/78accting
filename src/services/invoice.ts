@@ -67,14 +67,12 @@ const exportpdf = async (filename: string) => {
             nottotal: 200,
         }];
 
-        const doc = new PDFDocument({ font: "./src/fonts/THSarabun.ttf" });
-        doc.pipe(fs.createWriteStream(`./src/pdf/${filename}.pdf`));
-
+        const doc = new PDFDocument({ font: "./src/fonts/THSarabun.ttf", margin: 50, size: 'A4' });
         // Add the invoice number and date
-        doc.fontSize(16).text(`${data[0].invoiceName}`, 50, 30);
-        doc.fontSize(12).fill('#FF0000').text(`สำหรับลูกค้า`, 30, 35, { width: 500, align: 'right' });
-        doc.fontSize(12).fill('#000').text(`เอกสารออกเป็นชุด`, 50, 50, { align: 'right' });
-        doc.fontSize(12).text(`${data[0].address}`, 50, 50);
+        doc.fontSize(18).text(`${data[0].invoiceName}`, 50, 30);
+        doc.fontSize(14).fill('#FF0000').text(`สำหรับลูกค้า`, 30, 35, { width: 500, align: 'right' });
+        doc.fontSize(14).fill('#000').text(`เอกสารออกเป็นชุด`, 50, 50, { align: 'right' });
+        doc.fontSize(14).text(`${data[0].address}`, 50, 50);
 
         // Add the Title
         doc.roundedRect(245, 120, 170, 35, 3).fill('#616196')
@@ -130,11 +128,12 @@ const exportpdf = async (filename: string) => {
 
         // Draw the table header
         doc.rect(tableLeft, tableTop, tableWidth, headerHeight).fill('#DD6400');
-        doc.fontSize(10).fill('#fff').text('รหัสสินค้า\nCode', tableLeft, tableTop + 1, { width: col1Width, align: 'center' });
-        doc.fontSize(10).fill('#fff').text('รายการ\nDescription', tableLeft + col1Width, tableTop + 1, { width: col2Width, align: 'center' });
-        doc.fontSize(10).fill('#fff').text('จำนวน\nQuantity', tableLeft + col1Width + col2Width, tableTop + 1, { width: col3Width, align: 'center' });
-        doc.fontSize(10).fill('#fff').text('ราคา\nPrice', tableLeft + col1Width + col2Width + col3Width, tableTop + 1, { width: col4Width, align: 'center' });
-        doc.fontSize(10).fill('#fff').text('จำนวนเงิน\nAmount', tableLeft + col1Width + col2Width + col3Width + col4Width, tableTop + 1, { width: col5Width, align: 'center' });
+        doc.font('./src/fonts/THSarabun Bold.ttf').fontSize(11).fill('#fff').text('รหัสสินค้า\nCode', tableLeft, tableTop + 1, { width: col1Width, align: 'center' });
+        doc.font('./src/fonts/THSarabun Bold.ttf').fontSize(11).fill('#fff').text('รายการ\nDescription', tableLeft + col1Width, tableTop + 1, { width: col2Width, align: 'center' });
+        doc.font('./src/fonts/THSarabun Bold.ttf').fontSize(11).fill('#fff').text('จำนวน\nQuantity', tableLeft + col1Width + col2Width, tableTop + 1, { width: col3Width, align: 'center' });
+        doc.font('./src/fonts/THSarabun Bold.ttf').fontSize(11).fill('#fff').text('ราคา\nPrice', tableLeft + col1Width + col2Width + col3Width, tableTop + 1, { width: col4Width, align: 'center' });
+        doc.font('./src/fonts/THSarabun Bold.ttf').fontSize(11).fill('#fff').text('จำนวนเงิน\nAmount', tableLeft + col1Width + col2Width + col3Width + col4Width, tableTop + 1, { width: col5Width, align: 'center' });
+        doc.font('./src/fonts/THSarabun.ttf')
 
         const startX = 35;
         const startY = 285;
@@ -194,7 +193,34 @@ const exportpdf = async (filename: string) => {
         doc.fontSize(10).text(`ยอดเงินสุทธิ (Not total)`, tableLeft + 10 + col1Width + col2Width + col3Width, yamout + (19 * rowCount - 50), { width: col4Width, align: 'left' });
         doc.fontSize(10).text(`${data[0].total.toFixed(2)}`, tableLeft - 10 + col1Width + col2Width + col3Width + col4Width, yamout + (19 * rowCount - 50), { width: col5Width, align: 'right' });
 
+        // Add the footer reciever
+        doc.roundedRect(tableLeft, yamout + (20.2 * rowCount - 50), 240, 90, 3).lineWidth(0.5).stroke();
+        doc.fontSize(10).text(`ได้รับสินค้าตามรายการข้างบนไว้เรียบร้อยแล้ว`, tableLeft, yamout + (20.5 * rowCount - 50), { width: 240, align: 'center' });
+        doc.fontSize(10).text(`ผู้รับสินค้า`, tableLeft + 10, yamout + (21.5 * rowCount - 50), { width: 210, align: 'left' });
+        doc.fontSize(10).text(`__________________________________________________`, tableLeft + 50, yamout + (21.5 * rowCount - 50), { width: 190, align: 'left' });
+        doc.fontSize(10).text(`วันที่`, tableLeft + 10, yamout + (22.5 * rowCount - 50), { width: 210, align: 'left' });
+        doc.fontSize(10).text(`__________________________________________________`, tableLeft + 50, yamout + (22.5 * rowCount - 50), { width: 190, align: 'left' });
+
+        // Add the footer sender
+        doc.roundedRect(tableLeft + 245, yamout + (20.2 * rowCount - 50), 145, 90, 3).lineWidth(0.5).stroke();
+        doc.fontSize(10).text(`ผู้ส่งสินค้า`, tableLeft + 245 + 10, yamout + (21.5 * rowCount - 50), { width: 135, align: 'left' });
+        doc.fontSize(10).text(`________________________`, tableLeft + 245 + 50, yamout + (21.5 * rowCount - 50), { width: 95, align: 'left' });
+        doc.fontSize(10).text(`วันที่`, tableLeft + 245 + 10, yamout + (22.5 * rowCount - 50), { width: 135, align: 'left' });
+        doc.fontSize(10).text(`________________________`, tableLeft + 245 + 50, yamout + (22.5 * rowCount - 50), { width: 95, align: 'left' });
+
+        // Add the footer conmpany
+        doc.roundedRect(tableLeft + 395, yamout + (20.2 * rowCount - 50), 145, 90, 3).lineWidth(0.5).stroke();
+        doc.fontSize(10).text(`ในนาม ${data[0].invoiceName}`, tableLeft + 395, yamout + (20.5 * rowCount - 50), { width: 145, align: 'center' });
+        doc.fontSize(10).text(`____________________________________`, tableLeft + 395 + 10, yamout + (21.5 * rowCount - 50), { width: 135, align: 'left' });
+        doc.fontSize(10).text(`____________________________________`, tableLeft + 395 + 10, yamout + (22.5 * rowCount - 50), { width: 135, align: 'left' });
+        doc.fontSize(10).text(`ผู้มีอำนาจลงนาม`, tableLeft + 395 + 10, yamout + (23.2 * rowCount - 50), { width: 135, align: 'center' });
+
+        // create PDF to SERVER
+        const steam = fs.createWriteStream(`./src/pdf/${filename}.pdf`);
+        doc.pipe(steam)
+
         doc.end();
+
         return `Success export file ${filename}.pdf`
     } catch (error) {
         throw error
