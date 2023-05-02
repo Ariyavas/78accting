@@ -3,6 +3,6 @@ import { API_CreacteUser } from "../controllers/user.controller";
 
 const router = express.Router();
 
-router.get("/", API_CreacteUser)
+router.post("/", API_CreacteUser)
 
 export = router;

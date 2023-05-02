@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  basic-docker-web:
+    build: .
+    environment:
+      MONGO_USERNAME: ariyavas
+      MONGO_PASSWORD: Fivelpzaza1
+      SERVER_URL: 3000
+    ports:
+      - 3000:3000
+    networks:
+      -  mynetwork
+  mongo_db:
+    container_name: database_connect
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_db:/data/db
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+    driver: bridge
+volumes:
+  mongo_db:
