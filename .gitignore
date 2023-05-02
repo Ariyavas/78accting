@@ -114,3 +114,6 @@ dist
 !/configs/.gitkeep
 
 package-lock.json
+
+#folder DB
+db/
