@@ -5,14 +5,12 @@ import cors from "cors";
 import Logging from "./library/logging";
 import { config } from "./config/config";
 
-import PDFDocument from 'pdfkit';
-
 const app = express();
 const server = http.createServer(app);
 
 // ? routers
-import invoice from "./routers/invoice.routes"
-import user from "./routers/user.routes"
+import invoice from "./routers/invoice.routes";
+import user from "./routers/user.routes";
 
 app.use(cors());
 
@@ -64,7 +62,7 @@ const StartServer = () => {
   });
 
   app.use("/api/invoice", invoice);
-  app.use("/api/user", user)
+  app.use("/api/user", user);
 
   server.listen(config.server.port, () => {
     Logging.info(`Server is running on port: ${config.server.port}`);

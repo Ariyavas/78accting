@@ -5,6 +5,7 @@ services:
     environment:
       MONGO_USERNAME: ariyavas
       MONGO_PASSWORD: Fivelpzaza1
+      MONGO_DB_NAME: mongo_db
       SERVER_URL: 3000
     ports:
       - 3000:3000
